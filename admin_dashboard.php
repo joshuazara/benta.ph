@@ -30,20 +30,23 @@ $categoryCount = $categoryRow['count'];
 <div class="row mb-4">
   
     <div class="col-md-6 mb-3">
-        <div class="card card-dashboard bg-white">
+    <a href="adminindex.php?pg=transactions" class="text-decoration-none text-dark">
+        <div class="card card-dashboard bg-white h-100">
             <div class="card-body text-center">
                 <div class="mb-3">
                     <i class="fas fa-check-circle card-icon"></i>
                 </div>
                 <h5 class="card-title">Approved Transactions</h5>
                 <h2 class="display-4 fw-bold"><?php echo $approvedCount; ?></h2>
-                <p class="card-text text-muted mb-0">Total approved orders</p>
+                    <p class="card-text text-muted mb-0">Total approved orders</p>
+                </div>
             </div>
-        </div>
+        </a>
     </div>
     
- 
+    
     <div class="col-md-6 mb-3">
+        <a href="adminindex.php?pg=transactions" class="text-decoration-none text-dark"></a>
         <div class="card card-dashboard bg-white">
             <div class="card-body text-center">
                 <div class="mb-3">
@@ -54,8 +57,8 @@ $categoryCount = $categoryRow['count'];
                 <p class="card-text text-muted mb-0">Orders awaiting approval</p>
             </div>
         </div>
+        </a>
     </div>
-</div>
 
 
 <div class="row mb-4">
