@@ -63,7 +63,7 @@ $categoryCount = $categoryRow['count'];
 
 <div class="row mb-4">
     <div class="col-12 mb-3">
-        <h3>My Account</h3>
+        <h3>Quick Access</h3>
     </div>
     <div class="col-md-6 mb-4">
         <div class="card h-100">

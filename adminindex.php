@@ -144,10 +144,16 @@
                     <span class="nav-link-text">Transactions</span>
                 </a>
             </li>
+              <li class="nav-item">
+                <a href="adminindex.php?pg=categories" class="nav-link <?php echo ($pg == 'categories' || $pg == 'add_category' || $pg == 'edit_category') ? 'active' : ''; ?>">
+                    <i class="fas fa-tags"></i>
+                    <span class="nav-link-text">Categories</span>
+                </a>
+            </li>
             <li class="nav-item">
-                <a href="adminindex.php?pg=management" class="nav-link <?php echo ($pg == 'management') ? 'active' : ''; ?>">
-                    <i class="fas fa-cogs"></i>
-                    <span class="nav-link-text">Management</span>
+                <a href="adminindex.php?pg=items" class="nav-link <?php echo ($pg == 'items' || $pg == 'add_item' || $pg == 'edit_item') ? 'active' : ''; ?>">
+                    <i class="fas fa-box"></i>
+                    <span class="nav-link-text">Items</span>
                 </a>
             </li>
             <li class="nav-item">
