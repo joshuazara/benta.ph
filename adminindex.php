@@ -1,14 +1,12 @@
 <?php
-    // Start session to maintain admin login state
+    
     session_start();
     
-    // Check if admin is logged in, if not redirect to login page
     if(!isset($_SESSION['admin_username'])) {
-        header("Location: admin_login.php");
-        exit();
+        echo "<script>window.location = 'index.php';</script>";
     }
     
-    // Database connection
+   
     $conn = mysqli_connect("localhost", "root", "", "dbbenta");
     
     // Get page parameter for indexing
@@ -205,12 +203,6 @@
             sidebar.classList.toggle('collapsed');
         }
         
-        // Confirm delete function
-        function confirmDelete(message, url) {
-            if (confirm(message)) {
-                window.location.href = url;
-            }
-        }
     </script>
 </body>
 </html>

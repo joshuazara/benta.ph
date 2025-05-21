@@ -9,6 +9,5 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to login page
-header("Location: admin_login.php");
-exit();
+echo "<script>window.location = 'index.php';</script>";
 ?>

@@ -1,52 +1,31 @@
 <?php
-// Start session
+ $conn = mysqli_connect("localhost", "root", "", "dbbenta");
+
 session_start();
 
-// If admin is already logged in, redirect to admin panel
+
 if(isset($_SESSION['admin_username'])) {
     header("Location: adminindex.php");
     exit();
 }
 
-// Check for form submission
 if(isset($_POST['login'])) {
-    // Database connection
-    $conn = mysqli_connect("localhost", "root", "", "dbbenta");
-    if(!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
-    
-    // Get form inputs
+   
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     
-    // Query the admin table
-    $query = "SELECT * FROM admin WHERE username = '$username' AND password = '$password'";
-    $result = mysqli_query($conn, $query);
+    $result = mysqli_query($conn, "SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
     
-    // Check if user exists
     if(mysqli_num_rows($result) > 0) {
-        // Set session variables
+    
         $_SESSION['admin_username'] = $username;
-        
-        // Redirect to admin panel
-        header("Location: adminindex.php");
-        exit();
+           
+        echo "<script>window.location = 'adminindex.php';</script>";
     } else {
         $error_message = "Invalid username or password.";
     }
 }
 
-// Check if database needs admin setup
-$conn = mysqli_connect("localhost", "root", "", "dbbenta");
-$check_admin = "SELECT * FROM admin";
-$admin_result = mysqli_query($conn, $check_admin);
-
-if(mysqli_num_rows($admin_result) == 0) {
-    // Insert default admin (username: admin, password: admin)
-    $insert_admin = "INSERT INTO admin (username, password) VALUES ('admin', 'admin')";
-    mysqli_query($conn, $insert_admin);
-}
 ?>
 
 <!DOCTYPE html>
@@ -55,9 +34,9 @@ if(mysqli_num_rows($admin_result) == 0) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BENTA.PH - Admin Login</title>
-    <!-- Bootstrap CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -125,7 +104,7 @@ if(mysqli_num_rows($admin_result) == 0) {
                     </div>
                 <?php endif; ?>
                 
-                <form method="post" action="">
+                <form method="post">
                     <div class="form-floating">
                         <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                         <label for="username">Username</label>
@@ -146,7 +125,7 @@ if(mysqli_num_rows($admin_result) == 0) {
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
