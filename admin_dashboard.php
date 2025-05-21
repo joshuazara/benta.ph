@@ -46,7 +46,7 @@ $categoryCount = $categoryRow['count'];
     
     
     <div class="col-md-6 mb-3">
-        <a href="adminindex.php?pg=transactions" class="text-decoration-none text-dark"></a>
+        <a href="adminindex.php?pg=transactions" class="text-decoration-none text-dark">
         <div class="card card-dashboard bg-white">
             <div class="card-body text-center">
                 <div class="mb-3">
@@ -54,9 +54,9 @@ $categoryCount = $categoryRow['count'];
                 </div>
                 <h5 class="card-title">Pending Transactions</h5>
                 <h2 class="display-4 fw-bold"><?php echo $pendingCount; ?></h2>
-                <p class="card-text text-muted mb-0">Orders awaiting approval</p>
+                    <p class="card-text text-muted mb-0">Orders awaiting approval</p>
+                </div>
             </div>
-        </div>
         </a>
     </div>
 
