@@ -10,9 +10,6 @@
     
     // Database connection
     $conn = mysqli_connect("localhost", "root", "", "dbbenta");
-    if(!$conn) {
-        die("Connection failed: " . mysqli_connect_error());
-    }
     
     // Get page parameter for indexing
     $pg = isset($_GET["pg"]) ? $_GET["pg"] : "dashboard";
@@ -23,10 +20,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BENTA.PH - Admin Panel</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
@@ -185,43 +179,17 @@
 
             <!-- Dynamic Content Based on Page Parameter -->
             <?php
-            switch($pg) {
-                case "dashboard":
-                    include("admin_dashboard.php");
-                    break;
-                case "myaccount":
-                    include("admin_myaccount.php");
-                    break;
-                case "transactions":
-                    include("admin_transactions.php");
-                    break;
-                case "transaction_details":
-                    include("admin_transaction_details.php");
-                    break;
-                case "management":
-                    include("admin_management.php");
-                    break;
-                case "categories":
-                    include("admin_categories.php");
-                    break;
-                case "add_category":
-                    include("admin_add_category.php");
-                    break;
-                case "edit_category":
-                    include("admin_edit_category.php");
-                    break;
-                case "items":
-                    include("admin_items.php");
-                    break;
-                case "add_item":
-                    include("admin_add_item.php");
-                    break;
-                case "edit_item":
-                    include("admin_edit_item.php");
-                    break;
-                default:
-                    include("admin_dashboard.php");
-            }
+            if ($pg == "dashboard") { include("admin_dashboard.php"); }
+            if ($pg == "myaccount") { include("admin_myaccount.php"); }
+            if ($pg == "transactions") { include("admin_transactions.php"); }
+            if ($pg == "transaction_details") { include("admin_transaction_details.php"); }
+            if ($pg == "management") { include("admin_management.php"); }
+            if ($pg == "categories") { include("admin_categories.php"); }
+            if ($pg == "add_category") { include("admin_add_category.php"); }
+            if ($pg == "edit_category") { include("admin_edit_category.php"); }
+            if ($pg == "items") { include("admin_items.php"); }
+            if ($pg == "add_item") { include("admin_add_item.php"); }
+            if ($pg == "edit_item") { include("admin_edit_item.php"); }
             ?>
         </div>
     </div>
