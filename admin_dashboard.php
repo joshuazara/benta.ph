@@ -1,36 +1,24 @@
 <?php
-$pendingQuery = "SELECT COUNT(*) as count FROM transaction WHERE status = 'Pending'";
-$pendingResult = mysqli_query($conn, $pendingQuery);
-$pendingCount = 0;
-if($pendingRow = mysqli_fetch_assoc($pendingResult)) {
-    $pendingCount = $pendingRow['count'];
-}
 
-$approvedQuery = "SELECT COUNT(*) as count FROM transaction WHERE status = 'Approved'";
-$approvedResult = mysqli_query($conn, $approvedQuery);
-$approvedCount = 0;
-if($approvedRow = mysqli_fetch_assoc($approvedResult)) {
-    $approvedCount = $approvedRow['count'];
-}
+$pendingResult = mysqli_query($conn, "SELECT COUNT(*) as count FROM transaction WHERE status = 'Pending'");
+$pendingRow = mysqli_fetch_assoc($pendingResult);
+$pendingCount = $pendingRow['count'];
 
-// Get item count
-$itemQuery = "SELECT COUNT(*) as count FROM item";
-$itemResult = mysqli_query($conn, $itemQuery);
-$itemCount = 0;
-if($itemRow = mysqli_fetch_assoc($itemResult)) {
-    $itemCount = $itemRow['count'];
-}
+$approvedResult = mysqli_query($conn, "SELECT COUNT(*) as count FROM transaction WHERE status = 'Approved'");
+$approvedRow = mysqli_fetch_assoc($approvedResult);
+$approvedCount = $approvedRow['count'];
 
-// Get category count
-$categoryQuery = "SELECT COUNT(*) as count FROM category";
-$categoryResult = mysqli_query($conn, $categoryQuery);
-$categoryCount = 0;
-if($categoryRow = mysqli_fetch_assoc($categoryResult)) {
-    $categoryCount = $categoryRow['count'];
-}
+$itemResult = mysqli_query($conn, "SELECT COUNT(*) as count FROM item");
+$itemRow = mysqli_fetch_assoc($itemResult);
+$itemCount = $itemRow['count'];
+
+$categoryResult = mysqli_query($conn, "SELECT COUNT(*) as count FROM category");
+$categoryRow = mysqli_fetch_assoc($categoryResult);
+$categoryCount = $categoryRow['count'];
+
 ?>
 
-<!-- Dashboard heading -->
+
 <div class="row mb-4">
     <div class="col">
         <h2>Dashboard</h2>
@@ -38,9 +26,9 @@ if($categoryRow = mysqli_fetch_assoc($categoryResult)) {
     </div>
 </div>
 
-<!-- Transaction Stats Cards -->
+
 <div class="row mb-4">
-    <!-- Approved Transactions Card -->
+  
     <div class="col-md-6 mb-3">
         <div class="card card-dashboard bg-white">
             <div class="card-body text-center">
@@ -54,7 +42,7 @@ if($categoryRow = mysqli_fetch_assoc($categoryResult)) {
         </div>
     </div>
     
-    <!-- Pending Transactions Card -->
+ 
     <div class="col-md-6 mb-3">
         <div class="card card-dashboard bg-white">
             <div class="card-body text-center">
@@ -69,7 +57,7 @@ if($categoryRow = mysqli_fetch_assoc($categoryResult)) {
     </div>
 </div>
 
-<!-- Quick Access Sections -->
+
 <div class="row mb-4">
     <div class="col-12 mb-3">
         <h3>My Account</h3>
@@ -121,7 +109,7 @@ if($categoryRow = mysqli_fetch_assoc($categoryResult)) {
     </div>
 </div>
 
-<!-- Management Section -->
+
 <div class="row">
     <div class="col-12 mb-3">
         <h3>Management</h3>
