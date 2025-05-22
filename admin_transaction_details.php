@@ -119,7 +119,6 @@ $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
         </div>
     </div>
     
-    <!-- Order Items -->
     <div class="col-md-7 mb-4">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
