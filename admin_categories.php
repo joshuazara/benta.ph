@@ -1,24 +1,13 @@
 <?php
-// Check if directly accessed
+
 if(!isset($conn)) {
     echo "<script>window.location = 'index.php';</script>";
 }
 
-// Delete category if requested
-if(isset($_GET['delete'])) {
-    $categoryId = $_GET['delete'];
-    
-    // Check if category is in use by any items
-    $checkItems = mysqli_query($conn, "SELECT COUNT(*) as count FROM item WHERE categoryid = $categoryId");
-    $itemRow = mysqli_fetch_assoc($checkItems);
-    $itemCount = $itemRow['count'];
-    if($itemCount > 0) {
-        echo "<script>alert('Cannot delete category because it is being used by $itemCount item(s).');</script>";
-    } else {
-        mysqli_query($conn, "DELETE FROM category WHERE categoryid = $categoryId");
-        echo "<script>alert('Category deleted successfully.');</script>";
-    }
-    
+if(isset($_GET["delete"])) {
+    $id = $_GET["delete"];
+    mysqli_query($conn, "DELETE FROM category WHERE categoryid = $id");
+    echo "<script>alert('Category deleted successfully.');</script>";
     echo "<script>window.location = 'adminindex.php?pg=categories';</script>";
 }
 ?>
@@ -52,11 +41,10 @@ if(isset($_GET['delete'])) {
                 </thead>
                 <tbody>
                     <?php
-                    // Get all categories
                     $q = mysqli_query($conn, "SELECT c.*, 
-                                             (SELECT COUNT(*) FROM item i WHERE i.categoryid = c.categoryid) as item_count
-                                          FROM category c
-                                          ORDER BY c.name ASC");
+                                         (SELECT COUNT(*) FROM item i WHERE i.categoryid = c.categoryid) as item_count
+                                      FROM category c
+                                      ORDER BY c.name ASC");
                     
                     while($r = mysqli_fetch_array($q)) {
                     ?>
@@ -68,16 +56,10 @@ if(isset($_GET['delete'])) {
                                 <a href="adminindex.php?pg=edit_category&id=<?php echo $r["categoryid"]; ?>" class="btn btn-sm btn-info me-1">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
-                                <?php if($r["item_count"] == 0) { ?>
                                 <a href="adminindex.php?pg=categories&delete=<?php echo $r["categoryid"]; ?>" class="btn btn-sm btn-danger" 
                                    onclick="return confirm('Are you sure you want to delete this category?')">
                                     <i class="fas fa-trash"></i> Delete
                                 </a>
-                                <?php } else { ?>
-                                <button class="btn btn-sm btn-secondary" disabled title="Cannot delete category with items">
-                                    <i class="fas fa-trash"></i> Delete
-                                </button>
-                                <?php } ?>
                             </td>
                         </tr>
                     <?php

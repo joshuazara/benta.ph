@@ -1,5 +1,5 @@
 <?php
-// Check if directly accessed
+
 if(!isset($conn)) {
     echo "<script>window.location = 'index.php';</script>";
 }
@@ -17,7 +17,7 @@ if(!isset($conn)) {
     </div>
 </div>
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
@@ -85,13 +85,13 @@ if(!isset($conn)) {
                         $description = $_POST["description"];
                         $image = "";
                         
-                        // Handle image upload
+                        
                         if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
                             $image = "uploads/".basename($_FILES["image"]["name"]);
                             move_uploaded_file($_FILES["image"]["tmp_name"], $image);
                         }
                         
-                        // Insert item
+                       
                         mysqli_query($conn, "INSERT INTO item(categoryid, itemname, price, image, quantity, description) 
                                         VALUES($categoryid, '$itemname', $price, '$image', $quantity, '$description')");
                         
@@ -100,45 +100,6 @@ if(!isset($conn)) {
                     }
                     ?>
                 </form>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-white">
-                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Item Guide</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3">
-                    <h6><i class="fas fa-tag me-2 text-primary"></i>Item Name</h6>
-                    <p class="text-muted small">Enter a unique name for your product.</p>
-                </div>
-                
-                <div class="mb-3">
-                    <h6><i class="fas fa-folder me-2 text-primary"></i>Category</h6>
-                    <p class="text-muted small">Assign the item to a category.</p>
-                </div>
-                
-                <div class="mb-3">
-                    <h6><i class="fas fa-money-bill me-2 text-primary"></i>Price</h6>
-                    <p class="text-muted small">Set the selling price in Philippine Pesos (₱).</p>
-                </div>
-                
-                <div class="mb-3">
-                    <h6><i class="fas fa-cubes me-2 text-primary"></i>Quantity</h6>
-                    <p class="text-muted small">Enter the available stock quantity.</p>
-                </div>
-                
-                <div class="mb-3">
-                    <h6><i class="fas fa-align-left me-2 text-primary"></i>Description</h6>
-                    <p class="text-muted small">Provide a detailed description of the item.</p>
-                </div>
-                
-                <div class="mb-3">
-                    <h6><i class="fas fa-image me-2 text-primary"></i>Product Image</h6>
-                    <p class="text-muted small">Upload an image of the product.</p>
-                </div>
             </div>
         </div>
     </div>

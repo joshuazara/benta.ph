@@ -1,12 +1,12 @@
 <?php
-// Check if directly accessed
+
 if(!isset($conn)) {
     echo "<script>window.location = 'index.php';</script>";
 }
 
 $id = $_GET["id"];
 
-// Process actions
+
 if(isset($_POST["btnapprove"])) {
     mysqli_query($conn, "UPDATE transaction SET status = 'Approved' WHERE transactionid = $id");
     echo "<script>alert('Transaction #$id has been approved.');</script>";
@@ -25,14 +25,14 @@ if(isset($_POST["btncomplete"])) {
     echo "<script>window.location = 'adminindex.php?pg=transaction_details&id=$id';</script>";
 }
 
-// Get transaction details
+
 $q = mysqli_query($conn, "SELECT t.*, u.firstname, u.lastname 
                        FROM transaction t
                        JOIN user u ON t.userid = u.userid
                        WHERE t.transactionid = $id");
 $r = mysqli_fetch_array($q);
 
-// Format the status with appropriate color and icon
+
 $statusClass = '';
 $statusIcon = '';
 
@@ -50,7 +50,7 @@ if($r["status"] == "Pending") {
     $statusIcon = 'fas fa-times-circle';
 }
 
-// Format date
+
 $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
 ?>
 
@@ -70,7 +70,7 @@ $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
 </div>
 
 <div class="row">
-    <!-- Transaction Summary -->
+
     <div class="col-md-5 mb-4">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
@@ -94,7 +94,6 @@ $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
                     <span class="badge <?php echo $statusClass; ?>"><i class="<?php echo $statusIcon; ?> me-1"></i><?php echo $r["status"]; ?></span>
                 </div>
                 
-                <!-- Action Buttons -->
                 <form method="POST">
                     <div class="mt-4">
                         <?php if($r["status"] == "Pending") { ?>
@@ -139,7 +138,6 @@ $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
                         </thead>
                         <tbody>
                             <?php
-                            // Get transaction items
                             $itemsQuery = mysqli_query($conn, "SELECT ti.*, i.itemname, i.image 
                                                 FROM transactionitem ti
                                                 JOIN item i ON ti.itemid = i.itemid

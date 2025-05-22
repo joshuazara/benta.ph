@@ -3,21 +3,6 @@
 if(!isset($conn)) {
     echo "<script>window.location = 'index.php';</script>";
 }
-
-// Process category creation
-if(isset($_POST["btnsave"])) {
-    $categoryName = $_POST["categoryname"];
-    
-    // Check if category name already exists
-    $checkQuery = mysqli_query($conn, "SELECT * FROM category WHERE name = '$categoryName'");
-    if(mysqli_num_rows($checkQuery) > 0) {
-        echo "<script>alert('Category name already exists. Please use a different name.');</script>";
-    } else {
-        mysqli_query($conn, "INSERT INTO category (name) VALUES ('$categoryName')");
-        echo "<script>alert('Category added successfully.');</script>";
-        echo "<script>window.location = 'adminindex.php?pg=categories';</script>";
-    }
-}
 ?>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -32,7 +17,7 @@ if(isset($_POST["btnsave"])) {
     </div>
 </div>
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-6">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
@@ -43,7 +28,6 @@ if(isset($_POST["btnsave"])) {
                     <div class="mb-3">
                         <label for="categoryname" class="form-label">Category Name</label>
                         <input type="text" class="form-control" id="categoryname" name="categoryname" required>
-                        <div class="form-text">Enter a unique name for the category</div>
                     </div>
                     
                     <div class="mt-4">
@@ -54,6 +38,16 @@ if(isset($_POST["btnsave"])) {
                             <i class="fas fa-times me-2"></i>Cancel
                         </a>
                     </div>
+                    
+                    <?php
+                    if(isset($_POST["btnsave"])) {
+                        $categoryname = $_POST["categoryname"];
+                        
+                        mysqli_query($conn, "INSERT INTO category (name) VALUES ('$categoryname')");
+                        echo "<script>alert('Category added successfully.');</script>";
+                        echo "<script>window.location = 'adminindex.php?pg=categories';</script>";
+                    }
+                    ?>
                 </form>
             </div>
         </div>

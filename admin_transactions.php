@@ -1,5 +1,5 @@
 <?php
-// Check if directly accessed
+
 if(!isset($conn)) {
     echo "<script>window.location = 'index.php';</script>";
 }
@@ -33,14 +33,13 @@ if(!isset($conn)) {
                 </thead>
                 <tbody>
                     <?php
-                    // Get all transactions ordered by date (newest first)
                     $q = mysqli_query($conn, "SELECT t.*, u.firstname, u.lastname 
                                           FROM transaction t
                                           JOIN user u ON t.userid = u.userid
                                           ORDER BY t.ordereddate DESC");
                     
                     while($r = mysqli_fetch_array($q)) {
-                        // Format the status with appropriate color and icon
+                        
                         $statusClass = '';
                         $statusIcon = '';
                         
@@ -58,7 +57,7 @@ if(!isset($conn)) {
                             $statusIcon = 'fas fa-times-circle';
                         }
                         
-                        // Format the date
+                        
                         $orderDate = date("M d, Y h:i A", strtotime($r["ordereddate"]));
                     ?>
                         <tr>

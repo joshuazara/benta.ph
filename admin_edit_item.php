@@ -1,17 +1,14 @@
 <?php
-// Check if directly accessed
 if(!isset($conn)) {
     echo "<script>window.location = 'index.php';</script>";
 }
 
-// Check if ID is provided
 if(!isset($_GET["id"])) {
     echo "<script>window.location = 'adminindex.php?pg=items';</script>";
 }
 
 $id = $_GET["id"];
 
-// Get item details
 $q = mysqli_query($conn, "SELECT * FROM item WHERE itemid = $id");
 $r = mysqli_fetch_array($q);
 ?>
@@ -28,7 +25,7 @@ $r = mysqli_fetch_array($q);
     </div>
 </div>
 
-<div class="row">
+<div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow-sm">
             <div class="card-header bg-white">
@@ -100,15 +97,15 @@ $r = mysqli_fetch_array($q);
                         $price = $_POST["price"];
                         $quantity = $_POST["quantity"];
                         $description = $_POST["description"];
-                        $image = $r["image"]; // Keep current image by default
+                        $image = $r["image"]; 
                         
-                        // Handle image upload if a new image is provided
+                        
                         if(isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
                             $image = "uploads/".basename($_FILES["image"]["name"]);
                             move_uploaded_file($_FILES["image"]["tmp_name"], $image);
                         }
                         
-                        // Update item
+                      
                         mysqli_query($conn, "UPDATE item SET 
                                       categoryid = $categoryid,
                                       itemname = '$itemname',
@@ -123,38 +120,6 @@ $r = mysqli_fetch_array($q);
                     }
                     ?>
                 </form>
-            </div>
-        </div>
-    </div>
-    
-    <div class="col-md-4">
-        <div class="card shadow-sm">
-            <div class="card-header bg-white">
-                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Item Status</h5>
-            </div>
-            <div class="card-body">
-                <?php if($r["quantity"] == 0) { ?>
-                    <div class="alert alert-danger">
-                        <i class="fas fa-exclamation-triangle me-2"></i>This item is out of stock.
-                    </div>
-                <?php } else if($r["quantity"] < 5) { ?>
-                    <div class="alert alert-warning">
-                        <i class="fas fa-exclamation-circle me-2"></i>This item is low in stock.
-                    </div>
-                <?php } else { ?>
-                    <div class="alert alert-success">
-                        <i class="fas fa-check-circle me-2"></i>This item is in stock.
-                    </div>
-                <?php } ?>
-                
-                <div class="mt-4">
-                    <h6>Item Tips:</h6>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Make sure image quality is good</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Write detailed descriptions</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Keep inventory up to date</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>

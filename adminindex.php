@@ -9,7 +9,6 @@
    
     $conn = mysqli_connect("localhost", "root", "", "dbbenta");
     
-    // Get page parameter for indexing
     $pg = isset($_GET["pg"]) ? $_GET["pg"] : "dashboard";
 ?>
 
@@ -117,7 +116,6 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h5 class="mb-0 title">BENTA.PH</h5>
@@ -181,7 +179,6 @@
                 </div>
             </div>
 
-            <!-- Dynamic Content Based on Page Parameter -->
             <?php
             if ($pg == "dashboard") { include("admin_dashboard.php"); }
             if ($pg == "myaccount") { include("admin_myaccount.php"); }
@@ -198,12 +195,9 @@
         </div>
     </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Custom JavaScript -->
-    <script>
-        // Toggle sidebar function
+    <script>    
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('collapsed');

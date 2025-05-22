@@ -1,10 +1,9 @@
 <?php
-// Check if directly accessed
+
 if(!isset($conn)) {
     echo "<script>window.location = 'index.php';</script>";
 }
 
-// Process delete action
 if(isset($_GET["delete"])) {
     $id = $_GET["delete"];
     mysqli_query($conn, "DELETE FROM item WHERE itemid = $id");
