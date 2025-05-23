@@ -65,50 +65,50 @@ $categoryCount = $categoryRow['count'];
             <h3>Quick Access</h3>
         </div>
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=myaccount" class="text-decoration-none"></a>
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-light p-3 rounded-circle">
-                                <i class="fas fa-user text-primary"></i>
+            <a href="adminindex.php?pg=myaccount" class="text-decoration-none">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-light p-3 rounded-circle">
+                                    <i class="fas fa-user text-primary"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Update Account</h5>
-                            <p class="text-muted mb-0">Change your admin password</p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-chevron-right text-muted"></i>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Update Account</h5>
+                                <p class="text-muted mb-0">Change your admin password</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </a>
         </div>
 
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=transactions" class="text-decoration-none"></a>
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-light p-3 rounded-circle">
-                                <i class="fas fa-list text-primary"></i>
+            <a href="adminindex.php?pg=transactions" class="text-decoration-none">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-light p-3 rounded-circle">
+                                    <i class="fas fa-list text-primary"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Transactions</h5>
-                            <p class="text-muted mb-0">View and manage order transactions</p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-chevron-right text-muted"></i>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Transactions</h5>
+                                <p class="text-muted mb-0">View and manage order transactions</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
-        </a>
     </div>
 
 
@@ -118,48 +118,48 @@ $categoryCount = $categoryRow['count'];
         </div>
 
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=items" class="text-decoration-none"></a>
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-light p-3 rounded-circle">
-                                <i class="fas fa-box text-primary"></i>
+            <a href="adminindex.php?pg=items" class="text-decoration-none">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-light p-3 rounded-circle">
+                                    <i class="fas fa-box text-primary"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Items</h5>
-                            <p class="text-muted mb-0">Number of items: <?php echo $itemCount; ?></p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-chevron-right text-muted"></i>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Items</h5>
+                                <p class="text-muted mb-0">Number of items: <?php echo $itemCount; ?></p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
             </a>
         </div>
 
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=categories" class="text-decoration-none"></a>
-            <div class="card h-100">
-                <div class="card-body">
-                    <div class="d-flex align-items-center">
-                        <div class="flex-shrink-0 me-3">
-                            <div class="bg-light p-3 rounded-circle">
-                                <i class="fas fa-tags text-primary"></i>
+            <a href="adminindex.php?pg=categories" class="text-decoration-none">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="bg-light p-3 rounded-circle">
+                                    <i class="fas fa-tags text-primary"></i>
+                                </div>
                             </div>
-                        </div>
-                        <div class="flex-grow-1">
-                            <h5 class="mb-1">Categories</h5>
-                            <p class="text-muted mb-0">Number of categories: <?php echo $categoryCount; ?></p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <i class="fas fa-chevron-right text-muted"></i>
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1">Categories</h5>
+                                <p class="text-muted mb-0">Number of categories: <?php echo $categoryCount; ?></p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-chevron-right text-muted"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
-        </a>
     </div>
