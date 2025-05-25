@@ -18,65 +18,48 @@ if (!empty($category_filter) && $category_filter != 'all') {
 
 $sql .= " ORDER BY itemname ASC";
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>BENTA.PH</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Bootstrap & Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 
-    <style>
+<!-- Add specific styles for homepage -->
+<style>
+    .product-img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
 
-        .product-img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
+    .product-card {
+        height: 100%;
+    }
 
-        .product-card {
-            height: 100%;
-        }
+    .product-title {
+        height: 3rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        line-height: 1.5rem;
+    }
 
-        .product-title {
-            height: 3rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            line-height: 1.5rem;
-        }
+    .product-category {
+        height: 1.25rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 
-        .product-category {
-            height: 1.25rem;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+    .product-price {
+        height: 2rem;
+        display: flex;
+        align-items: center;
+    }
 
-        .product-price {
-            height: 2rem;
-            display: flex;
-            align-items: center;
-        }
-
-        .product-stock {
-            height: 1.5rem;
-            display: flex;
-            align-items: center;
-        }
-
-        h3, h5 {
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
+    .product-stock {
+        height: 1.5rem;
+        display: flex;
+        align-items: center;
+    }
+</style>
 
 <!-- Enhanced Banner -->
 <div class="container mt-4 mb-4">
@@ -242,6 +225,3 @@ $sql .= " ORDER BY itemname ASC";
         ?>
     </div>
 </div>
-
-</body>
-</html>

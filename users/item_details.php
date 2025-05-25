@@ -10,7 +10,7 @@ $item_query = mysqli_query($con, "SELECT i.*, c.name as category_name FROM item 
                                   WHERE i.itemid = $item_id");
 
 if (!$item_query || mysqli_num_rows($item_query) == 0) {
-    echo "<script>alert('Product not found!'); window.location = '../index.php';</script>";
+    echo "<script>alert('Product not found!'); window.location = 'index.php';</script>";
     exit();
 }
 
@@ -62,53 +62,37 @@ if ($item['quantity'] == 0) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($item['itemname']); ?> - BENTA.PH</title>
+<!-- Add specific styles for item details -->
+<style>
+    .product-image {
+        width: 100%;
+        height: 450px;
+        object-fit: contain;
+        border-radius: 10px;
+        background-color: #f8f9fa;
+    }
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    .product-image-placeholder {
+        width: 100%;
+        height: 450px;
+        background: linear-gradient(135deg, #e9ecef, #f8f9fa);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        border: 2px dashed #dee2e6;
+    }
     
-    <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', sans-serif;
-        }
-        
-        .product-image {
-            width: 100%;
-            height: 450px;
-            object-fit: contain;
-            border-radius: 10px;
-            background-color: #f8f9fa;
-        }
-        
-        .product-image-placeholder {
-            width: 100%;
-            height: 450px;
-            background: linear-gradient(135deg, #e9ecef, #f8f9fa);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 10px;
-            border: 2px dashed #dee2e6;
-        }
-        
-        .price-tag {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #28a745;
-        }
-        
-        .quantity-input {
-            max-width: 120px;
-        }
-    </style>
-</head>
-<body>
+    .price-tag {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #28a745;
+    }
+    
+    .quantity-input {
+        max-width: 120px;
+    }
+</style>
 
 <div class="container mt-4">
     <!-- Breadcrumb -->
@@ -239,6 +223,3 @@ if ($item['quantity'] == 0) {
         </div>
     </div>
 </div>
-
-</body>
-</html>
