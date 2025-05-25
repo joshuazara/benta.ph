@@ -3,7 +3,7 @@ $conn = mysqli_connect("localhost", "root", "", "dbbenta");
 session_start();
 
 if(isset($_SESSION['admin_username'])) {
-    echo "<script>window.location = 'admin.php';</script>";
+    echo "<script>window.location = 'adminindex.php';</script>";
 }
 ?>
 
@@ -15,7 +15,6 @@ if(isset($_SESSION['admin_username'])) {
     <title>BENTA.PH - Admin Login</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 </head>
 <body class="bg-light">
     <div class="container">
@@ -49,7 +48,7 @@ if(isset($_SESSION['admin_username'])) {
                                 
                                 if(mysqli_num_rows($q) > 0) {
                                     $_SESSION['admin_username'] = $username;
-                                    echo "<script>window.location = 'admin.php';</script>";
+                                    echo "<script>window.location = 'adminindex.php';</script>";
                                 } else {
                                     echo "<div class='alert alert-danger mt-3'>Invalid username or password.</div>";
                                 }
@@ -59,6 +58,8 @@ if(isset($_SESSION['admin_username'])) {
                         
                         <div class="mt-3 text-center">
                             <small class="text-muted">Default login: admin / admin</small>
+                            <br>
+                            <a href="index.php" class="text-decoration-none">Back to Main Site</a>
                         </div>
                     </div>
                 </div>
