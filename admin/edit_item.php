@@ -106,7 +106,7 @@ $r = mysqli_fetch_array($q);
 
 
                         if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-                            $allowed_types = ['image/jpeg', 'image/png'];
+                           $allowed_types = array('image/jpeg', 'image/png');
                             $file_type = $_FILES["image"]["type"];
 
                             if (in_array($file_type, $allowed_types)) {

@@ -88,13 +88,13 @@ if (!isset($conn)) {
                         $image = "";
 
                         if (isset($_FILES["image"]) && $_FILES["image"]["error"] == 0) {
-                            $allowed_types = ['image/jpeg', 'image/png'];
+                            $allowed_types = array('image/jpeg', 'image/png');
                             $file_type = $_FILES["image"]["type"];
 
                             if (in_array($file_type, $allowed_types)) {
                                 $image = "../uploads/" . basename($_FILES["image"]["name"]);
                                 if (move_uploaded_file($_FILES["image"]["tmp_name"], $image)) {
-                                    $image = "uploads/" . basename($_FILES["image"]["name"]); 
+                                    $image = "uploads/" . basename($_FILES["image"]["name"]);
                                 } else {
                                     echo "<script>alert('Failed to upload image.');</script>";
                                     $image = "";
@@ -106,7 +106,7 @@ if (!isset($conn)) {
                         }
 
                         mysqli_query($conn, "INSERT INTO item(categoryid, itemname, price, image, quantity, description) 
-                    VALUES($categoryid, '$itemname', $price, '$image', $quantity, '$description')");
+                         VALUES($categoryid, '$itemname', $price, '$image', $quantity, '$description')");
 
                         echo "<script>alert('Item added successfully.');</script>";
                         echo "<script>window.location = 'admin.php?pg=items';</script>";
