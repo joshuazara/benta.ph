@@ -70,7 +70,7 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
                 if (isset($_POST["btnRegister"])) {
                     $firstname = $_POST["firstname"];
                     $lastname = $_POST["lastname"];
-                    $password = md5($_POST["password"]);
+                    $password = $_POST["password"];
                     $email = $_POST["email"];
                     $contact = $_POST["contact"];
                     $address = $_POST["address"];
@@ -78,13 +78,17 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
 
                     $checkuser = mysqli_query($con, "SELECT * FROM user WHERE email = '$email'");
                     if (mysqli_num_rows($checkuser) > 0) {
-                        echo "<div class='alert alert-danger mt-2'>Email already registered!</div>";
+                        echo "<div class='alert alert-danger mt-2'>Email already exists!</div>";
                     } else {
                         $insert = mysqli_query($con, "INSERT INTO user (firstname, lastname, email, password, contactnumber, address, createddate) 
                         VALUES ('$firstname', '$lastname', '$email', '$password', '$contact', '$address', '$createddate')");
-                        echo $insert
-                            ? "<div class='alert alert-success mt-2'>Registration successful!</div>"
-                            : "<div class='alert alert-danger mt-2'>Error: " . mysqli_error($con) . "</div>";
+                         if($insert) {
+                            session_start();
+                            $_SESSION['email'] = $email;
+                            echo "<script>alert('Registration successful! Welcome to Benta.ph!'); window.location = '../index.php';</script>";
+                        } else {
+                            echo "<div class='alert alert-danger mt-2'>Registration failed. Please try again.</div>";
+                        }
                     }
                 }
                 ?>
@@ -92,7 +96,7 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
 
             <div class="text-center mt-4">
                 <p>Already registered? <a href="login.php" class="text-decoration-none text-primary">Login here</a></p>
-                <p>Are you an admin? <a href="admin/admin_login.php" class="text-decoration-none text-primary">Click here</a></p>
+                <p>Are you an admin? <a href="../admin/admin_login.php" class="text-decoration-none text-primary">Click here</a></p>
             </div>
         </div>
     </div>

@@ -1,6 +1,6 @@
 <?php
 $con = mysqli_connect("localhost", "root", "", "dbbenta");
-
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -56,14 +56,13 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
                 <?php
                 if (isset($_POST["btnLogin"])) {
                     $email = $_POST['email'];
-                    $password = md5($_POST['password']);
+                    $password = $_POST['password'];
 
                     $query = "SELECT * FROM user WHERE email='$email' AND password='$password'";
                     $result = mysqli_query($con, $query);
 
-                    if (mysqli_num_rows($result) > 0) {
-                        $row = mysqli_fetch_assoc($result);               
-                        $_SESSION['email'] = $row['email'];
+                    if (mysqli_num_rows($result) > 0) {             
+                        $_SESSION['email'] = $email;
                         echo "<script>window.location.href = '../index.php';</script>";
                     } else {
                         echo "<div class='alert alert-danger'>Invalid login credentials.</div>";
