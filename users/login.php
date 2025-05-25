@@ -62,11 +62,9 @@ session_start();
                     $result = mysqli_query($con, $query);
 
                     if (mysqli_num_rows($result) > 0) {
-                        $row = mysqli_fetch_assoc($result);
-                        $_SESSION['userid'] = $row['userid'];
+                        $row = mysqli_fetch_assoc($result);               
                         $_SESSION['email'] = $row['email'];
-                        $_SESSION['firstname'] = $row['firstname'];
-                        echo "<script>window.location.href = 'user/index.php';</script>";
+                        echo "<script>window.location.href = '../index.php';</script>";
                     } else {
                         echo "<div class='alert alert-danger'>Invalid login credentials.</div>";
                     }
@@ -75,8 +73,8 @@ session_start();
             </div>
 
             <div class="text-center mt-4">
-                <p>Don't have an account? <a href="index.php" class="text-primary text-decoration-none">Register here</a></p>
-                <p>Are you an admin? <a href="login_admin.php" class="text-primary text-decoration-none">Login here</a></p>
+                <p>Don't have an account? <a href="register.php" class="text-primary text-decoration-none">Register here</a></p>
+                <p>Are you an admin? <a href="admin_login.php" class="text-primary text-decoration-none">Login here</a></p>
             </div>
         </div>
     </div>

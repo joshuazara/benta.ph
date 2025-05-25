@@ -2,6 +2,11 @@
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "dbbenta");
 
+ if(!isset($_SESSION['email'])) {
+        
+    }
+    
+
 // Get the page parameter
 $pg = isset($_GET["pg"]) ? $_GET["pg"] : "homepage";
 ?>
@@ -55,7 +60,9 @@ $pg = isset($_GET["pg"]) ? $_GET["pg"] : "homepage";
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">My Account</a></li>
+                <?php if(isset($_SESSION['email'])) { ?>
+                    <li class="nav-item"><a class="nav-link" href="index.php?pg=myaccount">My Account</a></li>
+                <?php } ?>
                 <li class="nav-item"><a class="nav-link" href="#">About</a></li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center gap-3">
@@ -65,7 +72,11 @@ $pg = isset($_GET["pg"]) ? $_GET["pg"] : "homepage";
                     </button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Logout</a>
+                    <?php if(isset($_SESSION['email'])) { ?>
+                        <a class="nav-link" href="index.php?pg=logout">Logout</a>
+                    <?php } else { ?>
+                    <a class="nav-link" href="index.php?pg=login">Login</a>
+                    <?php } ?>
                 </li>
             </ul>
         </div>

@@ -92,7 +92,7 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
 
             <div class="text-center mt-4">
                 <p>Already registered? <a href="login.php" class="text-decoration-none text-primary">Login here</a></p>
-                <p>Are you an admin? <a href="login_admin.php" class="text-decoration-none text-primary">Click here</a></p>
+                <p>Are you an admin? <a href="admin_login.php" class="text-decoration-none text-primary">Click here</a></p>
             </div>
         </div>
     </div>
