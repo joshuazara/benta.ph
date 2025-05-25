@@ -29,7 +29,7 @@ $categoryCount = $categoryRow['count'];
 <div class="row mb-4">
 
     <div class="col-md-6 mb-3">
-        <a href="adminindex.php?pg=transactions" class="text-decoration-none text-dark">
+        <a href="admin.php?pg=transactions" class="text-decoration-none text-dark">
             <div class="card card-dashboard bg-white h-100">
                 <div class="card-body text-center">
                     <div class="mb-3">
@@ -45,7 +45,7 @@ $categoryCount = $categoryRow['count'];
 
 
     <div class="col-md-6 mb-3">
-        <a href="adminindex.php?pg=transactions" class="text-decoration-none text-dark">
+        <a href="admin.php?pg=transactions" class="text-decoration-none text-dark">
             <div class="card card-dashboard bg-white">
                 <div class="card-body text-center">
                     <div class="mb-3">
@@ -65,7 +65,7 @@ $categoryCount = $categoryRow['count'];
             <h3>Quick Access</h3>
         </div>
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=myaccount" class="text-decoration-none">
+            <a href="admin.php?pg=myaccount" class="text-decoration-none">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -88,7 +88,7 @@ $categoryCount = $categoryRow['count'];
         </div>
 
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=transactions" class="text-decoration-none">
+            <a href="admin.php?pg=transactions" class="text-decoration-none">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -118,7 +118,7 @@ $categoryCount = $categoryRow['count'];
         </div>
 
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=items" class="text-decoration-none">
+            <a href="admin.php?pg=items" class="text-decoration-none">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -141,7 +141,7 @@ $categoryCount = $categoryRow['count'];
         </div>
 
         <div class="col-md-6 mb-4">
-            <a href="adminindex.php?pg=categories" class="text-decoration-none">
+            <a href="admin.php?pg=categories" class="text-decoration-none">
                 <div class="card h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">

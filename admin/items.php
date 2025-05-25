@@ -1,14 +1,14 @@
 <?php
 
 if(!isset($conn)) {
-    echo "<script>window.location = 'index.php';</script>";
+    echo "<script>window.location = 'admin_login.php';</script>";
 }
 
 if(isset($_GET["delete"])) {
     $id = $_GET["delete"];
     mysqli_query($conn, "DELETE FROM item WHERE itemid = $id");
     echo "<script>alert('Item deleted successfully.');</script>";
-    echo "<script>window.location = 'adminindex.php?pg=items';</script>";
+    echo "<script>window.location = 'admin.php?pg=items';</script>";
 }
 ?>
 
@@ -18,7 +18,7 @@ if(isset($_GET["delete"])) {
         <p class="text-muted">Manage product items</p>
     </div>
     <div class="col-auto">
-        <a href="adminindex.php?pg=add_item" class="btn btn-primary">
+        <a href="admin.php?pg=add_item" class="btn btn-primary">
             <i class="fas fa-plus-circle me-2"></i>Add New Item
         </a>
     </div>
@@ -55,7 +55,7 @@ if(isset($_GET["delete"])) {
                         <td><?php echo $r["itemid"]; ?></td>
                         <td>
                             <?php if(!empty($r["image"])) { ?>
-                                <img src="<?php echo $r["image"]; ?>" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                <img src="../<?php echo $r["image"]; ?>" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
                             <?php } else { ?>
                                 <div class="bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
                                     <i class="fas fa-image text-muted"></i>
@@ -76,10 +76,10 @@ if(isset($_GET["delete"])) {
                             ?>
                         </td>
                         <td>
-                            <a href="adminindex.php?pg=edit_item&id=<?php echo $r["itemid"]; ?>" class="btn btn-sm btn-info">
+                            <a href="admin.php?pg=edit_item&id=<?php echo $r["itemid"]; ?>" class="btn btn-sm btn-info">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
-                            <a href="adminindex.php?pg=items&delete=<?php echo $r["itemid"]; ?>" class="btn btn-sm btn-danger" 
+                            <a href="admin.php?pg=items&delete=<?php echo $r["itemid"]; ?>" class="btn btn-sm btn-danger" 
                                onclick="return confirm('Are you sure you want to delete this item?')">
                                 <i class="fas fa-trash"></i> Delete
                             </a>

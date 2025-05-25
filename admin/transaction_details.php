@@ -1,7 +1,7 @@
 <?php
 
 if(!isset($conn)) {
-    echo "<script>window.location = 'index.php';</script>";
+    echo "<script>window.location = 'admin_login.php';</script>";
 }
 
 $id = $_GET["id"];
@@ -10,19 +10,19 @@ $id = $_GET["id"];
 if(isset($_POST["btnapprove"])) {
     mysqli_query($conn, "UPDATE transaction SET status = 'Approved' WHERE transactionid = $id");
     echo "<script>alert('Transaction #$id has been approved.');</script>";
-    echo "<script>window.location = 'adminindex.php?pg=transaction_details&id=$id';</script>";
+    echo "<script>window.location = 'admin.php?pg=transaction_details&id=$id';</script>";
 }
 
 if(isset($_POST["btncancel"])) {
     mysqli_query($conn, "UPDATE transaction SET status = 'Cancelled' WHERE transactionid = $id");
     echo "<script>alert('Transaction #$id has been cancelled.');</script>";
-    echo "<script>window.location = 'adminindex.php?pg=transaction_details&id=$id';</script>";
+    echo "<script>window.location = 'admin.php?pg=transaction_details&id=$id';</script>";
 }
 
 if(isset($_POST["btncomplete"])) {
     mysqli_query($conn, "UPDATE transaction SET status = 'Completed' WHERE transactionid = $id");
     echo "<script>alert('Transaction #$id has been completed.');</script>";
-    echo "<script>window.location = 'adminindex.php?pg=transaction_details&id=$id';</script>";
+    echo "<script>window.location = 'admin.php?pg=transaction_details&id=$id';</script>";
 }
 
 
@@ -63,7 +63,7 @@ $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
         </p>
     </div>
     <div>
-        <a href="adminindex.php?pg=transactions" class="btn btn-outline-secondary">
+        <a href="admin.php?pg=transactions" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to Transactions
         </a>
     </div>
@@ -148,7 +148,7 @@ $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
                                     <td class="d-flex align-items-center">
                                         <div class="me-2">
                                             <?php if(!empty($item["image"])) { ?>
-                                                <img src="<?php echo $item["image"]; ?>" alt="<?php echo $item["itemname"]; ?>" style="width:40px; height:40px; object-fit:cover;" class="border rounded">
+                                                <img src="../<?php echo $item["image"]; ?>" alt="<?php echo $item["itemname"]; ?>" style="width:40px; height:40px; object-fit:cover;" class="border rounded">
                                             <?php } else { ?>
                                                 <div class="bg-light d-flex align-items-center justify-content-center rounded border" style="width:40px; height:40px;">
                                                     <i class="fas fa-box text-secondary"></i>

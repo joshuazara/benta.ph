@@ -3,7 +3,7 @@
     session_start();
     
     if(!isset($_SESSION['admin_username'])) {
-        echo "<script>window.location = 'index.php';</script>";
+        echo "<script>window.location = 'admin_login.php';</script>";
     }
     
    
@@ -125,31 +125,31 @@
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="adminindex.php?pg=dashboard" class="nav-link <?php echo ($pg == 'dashboard') ? 'active' : ''; ?>">
+                <a href="admin.php?pg=dashboard" class="nav-link <?php echo ($pg == 'dashboard') ? 'active' : ''; ?>">
                     <i class="fas fa-tachometer-alt"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="adminindex.php?pg=myaccount" class="nav-link <?php echo ($pg == 'myaccount') ? 'active' : ''; ?>">
+                <a href="admin.php?pg=myaccount" class="nav-link <?php echo ($pg == 'myaccount') ? 'active' : ''; ?>">
                     <i class="fas fa-user"></i>
                     <span class="nav-link-text">My Account</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="adminindex.php?pg=transactions" class="nav-link <?php echo ($pg == 'transactions' || $pg == 'transaction_details') ? 'active' : ''; ?>">
+                <a href="admin.php?pg=transactions" class="nav-link <?php echo ($pg == 'transactions' || $pg == 'transaction_details') ? 'active' : ''; ?>">
                     <i class="fas fa-exchange-alt"></i>
                     <span class="nav-link-text">Transactions</span>
                 </a>
             </li>
               <li class="nav-item">
-                <a href="adminindex.php?pg=categories" class="nav-link <?php echo ($pg == 'categories' || $pg == 'add_category' || $pg == 'edit_category') ? 'active' : ''; ?>">
+                <a href="admin.php?pg=categories" class="nav-link <?php echo ($pg == 'categories' || $pg == 'add_category' || $pg == 'edit_category') ? 'active' : ''; ?>">
                     <i class="fas fa-tags"></i>
                     <span class="nav-link-text">Categories</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="adminindex.php?pg=items" class="nav-link <?php echo ($pg == 'items' || $pg == 'add_item' || $pg == 'edit_item') ? 'active' : ''; ?>">
+                <a href="admin.php?pg=items" class="nav-link <?php echo ($pg == 'items' || $pg == 'add_item' || $pg == 'edit_item') ? 'active' : ''; ?>">
                     <i class="fas fa-box"></i>
                     <span class="nav-link-text">Items</span>
                 </a>
@@ -163,10 +163,9 @@
         </ul>
     </div>
 
-    <!-- Main Content -->
+   
     <div class="main-content">
         <div class="container-fluid">
-            <!-- Top Navigation Bar -->
             <div class="row mb-4">
                 <div class="col-12">
                     <div class="d-flex justify-content-between align-items-center">
@@ -180,17 +179,17 @@
             </div>
 
             <?php
-            if ($pg == "dashboard") { include("admin_dashboard.php"); }
-            if ($pg == "myaccount") { include("admin_myaccount.php"); }
-            if ($pg == "transactions") { include("admin_transactions.php"); }
-            if ($pg == "transaction_details") { include("admin_transaction_details.php"); }
-            if ($pg == "management") { include("admin_management.php"); }
-            if ($pg == "categories") { include("admin_categories.php"); }
-            if ($pg == "add_category") { include("admin_add_category.php"); }
-            if ($pg == "edit_category") { include("admin_edit_category.php"); }
-            if ($pg == "items") { include("admin_items.php"); }
-            if ($pg == "add_item") { include("admin_add_item.php"); }
-            if ($pg == "edit_item") { include("admin_edit_item.php"); }
+            if ($pg == "dashboard") { include("dashboard.php"); }
+            if ($pg == "myaccount") { include("myaccount.php"); }
+            if ($pg == "transactions") { include("transactions.php"); }
+            if ($pg == "transaction_details") { include("transaction_details.php"); }
+            if ($pg == "management") { include("management.php"); }
+            if ($pg == "categories") { include("categories.php"); }
+            if ($pg == "add_category") { include("add_category.php"); }
+            if ($pg == "edit_category") { include("edit_category.php"); }
+            if ($pg == "items") { include("items.php"); }
+            if ($pg == "add_item") { include("add_item.php"); }
+            if ($pg == "edit_item") { include("edit_item.php"); }
             ?>
         </div>
     </div>

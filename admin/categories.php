@@ -1,14 +1,14 @@
 <?php
 
 if(!isset($conn)) {
-    echo "<script>window.location = 'index.php';</script>";
+    echo "<script>window.location = 'admin_login.php';</script>";
 }
 
 if(isset($_GET["delete"])) {
     $id = $_GET["delete"];
     mysqli_query($conn, "DELETE FROM category WHERE categoryid = $id");
     echo "<script>alert('Category deleted successfully.');</script>";
-    echo "<script>window.location = 'adminindex.php?pg=categories';</script>";
+    echo "<script>window.location = 'admin.php?pg=categories';</script>";
 }
 ?>
 
@@ -18,7 +18,7 @@ if(isset($_GET["delete"])) {
         <p class="text-muted">Manage product categories</p>
     </div>
     <div class="col-auto">
-        <a href="adminindex.php?pg=add_category" class="btn btn-primary">
+        <a href="admin.php?pg=add_category" class="btn btn-primary">
             <i class="fas fa-plus-circle me-2"></i>Add New Category
         </a>
     </div>
@@ -53,10 +53,10 @@ if(isset($_GET["delete"])) {
                             <td><?php echo $r["name"]; ?></td>
                             <td><?php echo $r["item_count"]; ?></td>
                             <td>
-                                <a href="adminindex.php?pg=edit_category&id=<?php echo $r["categoryid"]; ?>" class="btn btn-sm btn-info me-1">
+                                <a href="admin.php?pg=edit_category&id=<?php echo $r["categoryid"]; ?>" class="btn btn-sm btn-info me-1">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
-                                <a href="adminindex.php?pg=categories&delete=<?php echo $r["categoryid"]; ?>" class="btn btn-sm btn-danger" 
+                                <a href="admin.php?pg=categories&delete=<?php echo $r["categoryid"]; ?>" class="btn btn-sm btn-danger" 
                                    onclick="return confirm('Are you sure you want to delete this category?')">
                                     <i class="fas fa-trash"></i> Delete
                                 </a>

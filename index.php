@@ -1,71 +1,102 @@
 <?php
-$conn = mysqli_connect("localhost", "root", "", "dbbenta");
-session_start();
-
-if(isset($_SESSION['admin_username'])) {
-    echo "<script>window.location = 'adminindex.php';</script>";
-}
+$con = mysqli_connect("localhost", "root", "", "dbbenta");
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BENTA.PH - Admin Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Register - Benta.ph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-icon {
+            width: 38px;
+            text-align: center;
+        }
+    </style>
 </head>
+
 <body class="bg-light">
-    <div class="container">
-        <div class="row justify-content-center align-items-center min-vh-100">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header bg-dark text-white text-center">
-                        <h4 class="mb-0">BENTA.PH</h4>
-                        <p class="mb-0">Admin Login</p>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <button type="submit" name="btnlogin" class="btn btn-primary w-100">
-                                <i class="fas fa-sign-in-alt me-2"></i>Login
-                            </button>
-                            
-                            <?php
-                            if(isset($_POST["btnlogin"])) {
-                                $username = $_POST["username"];
-                                $password = $_POST["password"];
-                                
-                                $q = mysqli_query($conn, "SELECT * FROM admin WHERE username = '$username' AND password = '$password'");
-                                
-                                if(mysqli_num_rows($q) > 0) {
-                                    $_SESSION['admin_username'] = $username;
-                                    echo "<script>window.location = 'adminindex.php';</script>";
-                                } else {
-                                    echo "<div class='alert alert-danger mt-3'>Invalid username or password.</div>";
-                                }
-                            }
-                            ?>
-                        </form>
-                        
-                        <div class="mt-3 text-center">
-                            <small class="text-muted">Default login: admin / admin</small>
-                        </div>
-                    </div>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Benta<span class="text-primary">.ph</span></a>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="card p-4 shadow mx-auto" style="max-width: 500px;">
+            <h3 class="text-center fw-bold mb-4"><i class="fas fa-user-plus text-primary"></i> User Registration</h3>
+            <form method="POST">
+                <div class="mb-3 input-group">
+                    <span class="input-group-text form-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" name="firstname" class="form-control" placeholder="First Name" required>
                 </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text form-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" name="lastname" class="form-control" placeholder="Last Name" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text form-icon"><i class="fas fa-lock"></i></span>
+                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text form-icon"><i class="fas fa-envelope"></i></span>
+                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text form-icon"><i class="fas fa-phone"></i></span>
+                    <input type="number" name="contact" class="form-control" placeholder="Contact Number" required>
+                </div>
+                <div class="mb-3 input-group">
+                    <span class="input-group-text form-icon"><i class="fas fa-map-marker-alt"></i></span>
+                    <input type="text" name="address" class="form-control" placeholder="Address" required>
+                </div>
+                <button type="submit" name="btnRegister" class="btn btn-primary w-100">Register</button>
+            </form>
+
+            <div class="mt-3">
+                <?php
+                if (isset($_POST["btnRegister"])) {
+                    $firstname = $_POST["firstname"];
+                    $lastname = $_POST["lastname"];
+                    $password = md5($_POST["password"]);
+                    $email = $_POST["email"];
+                    $contact = $_POST["contact"];
+                    $address = $_POST["address"];
+                    $createddate = date("Y-m-d H:i:s");
+
+                    $checkuser = mysqli_query($con, "SELECT * FROM user WHERE email = '$email'");
+                    if (mysqli_num_rows($checkuser) > 0) {
+                        echo "<div class='alert alert-danger mt-2'>Email already registered!</div>";
+                    } else {
+                        $insert = mysqli_query($con, "INSERT INTO user (firstname, lastname, email, password, contactnumber, address, createddate) 
+                        VALUES ('$firstname', '$lastname', '$email', '$password', '$contact', '$address', '$createddate')");
+                        echo $insert
+                            ? "<div class='alert alert-success mt-2'>Registration successful!</div>"
+                            : "<div class='alert alert-danger mt-2'>Error: " . mysqli_error($con) . "</div>";
+                    }
+                }
+                ?>
+            </div>
+
+            <div class="text-center mt-4">
+                <p>Already registered? <a href="login.php" class="text-decoration-none text-primary">Login here</a></p>
+                <p>Are you an admin? <a href="login_admin.php" class="text-decoration-none text-primary">Click here</a></p>
             </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

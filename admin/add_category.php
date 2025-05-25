@@ -1,7 +1,6 @@
 <?php
-// Check if directly accessed
 if(!isset($conn)) {
-    echo "<script>window.location = 'index.php';</script>";
+    echo "<script>window.location = 'admin_login.php';</script>";
 }
 ?>
 
@@ -11,7 +10,7 @@ if(!isset($conn)) {
         <p class="text-muted mb-0">Create a new product category</p>
     </div>
     <div>
-        <a href="adminindex.php?pg=categories" class="btn btn-outline-secondary">
+        <a href="admin.php?pg=categories" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to Categories
         </a>
     </div>
@@ -34,7 +33,7 @@ if(!isset($conn)) {
                         <button type="submit" name="btnsave" class="btn btn-primary">
                             <i class="fas fa-save me-2"></i>Save Category
                         </button>
-                        <a href="adminindex.php?pg=categories" class="btn btn-outline-secondary ms-2">
+                        <a href="admin.php?pg=categories" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-times me-2"></i>Cancel
                         </a>
                     </div>
@@ -45,7 +44,7 @@ if(!isset($conn)) {
                         
                         mysqli_query($conn, "INSERT INTO category (name) VALUES ('$categoryname')");
                         echo "<script>alert('Category added successfully.');</script>";
-                        echo "<script>window.location = 'adminindex.php?pg=categories';</script>";
+                        echo "<script>window.location = 'admin.php?pg=categories';</script>";
                     }
                     ?>
                 </form>

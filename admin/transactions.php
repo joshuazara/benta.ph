@@ -1,7 +1,7 @@
 <?php
 
 if(!isset($conn)) {
-    echo "<script>window.location = 'index.php';</script>";
+    echo "<script>window.location = 'admin_login.php';</script>";
 }
 ?>
 
@@ -69,7 +69,7 @@ if(!isset($conn)) {
                             <td><?php echo $orderDate; ?></td>
                             <td><span class="badge <?php echo $statusClass; ?>"><i class="<?php echo $statusIcon; ?> me-1"></i><?php echo $r["status"]; ?></span></td>
                             <td>
-                                <a href="adminindex.php?pg=transaction_details&id=<?php echo $r["transactionid"]; ?>" class="btn btn-sm btn-primary">
+                                <a href="admin.php?pg=transaction_details&id=<?php echo $r["transactionid"]; ?>" class="btn btn-sm btn-primary">
                                     <i class="fas fa-eye me-1"></i>View
                                 </a>
                             </td>
