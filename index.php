@@ -75,7 +75,7 @@ $pg = isset($_GET["pg"]) ? $_GET["pg"] : "homepage";
                     <?php if(isset($_SESSION['email'])) { ?>
                         <a class="nav-link" href="index.php?pg=logout">Logout</a>
                     <?php } else { ?>
-                    <a class="nav-link" href="index.php?pg=login">Login</a>
+                    <a class="nav-link" href="users/login.php">Login</a>
                     <?php } ?>
                 </li>
             </ul>
@@ -96,9 +96,6 @@ $pg = isset($_GET["pg"]) ? $_GET["pg"] : "homepage";
                 break;
             case 'about':
                 include('users/about.php');
-                break;
-            case 'login':
-                include('users/login.php');
                 break;
             case 'register':
                 include('users/register.php');

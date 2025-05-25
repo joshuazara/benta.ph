@@ -30,7 +30,7 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Benta<span class="text-primary">.ph</span></a>
+            <a class="navbar-brand fw-bold" href="../index.php">Benta<span class="text-primary">.ph</span></a>
         </div>
     </nav>
 

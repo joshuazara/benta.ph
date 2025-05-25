@@ -1,6 +1,6 @@
 <?php
 $con = mysqli_connect("localhost", "root", "", "dbbenta");
-session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +33,7 @@ session_start();
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Benta<span class="text-primary">.ph</span></a>
+            <a class="navbar-brand fw-bold" href="../index.php">Benta<span class="text-primary">.ph</span></a>
         </div>
     </nav>
 
@@ -74,7 +74,7 @@ session_start();
 
             <div class="text-center mt-4">
                 <p>Don't have an account? <a href="register.php" class="text-primary text-decoration-none">Register here</a></p>
-                <p>Are you an admin? <a href="admin_login.php" class="text-primary text-decoration-none">Login here</a></p>
+                <p>Are you an admin? <a href="../admin/admin_login.php" class="text-primary text-decoration-none">Login here</a></p>
             </div>
         </div>
     </div>

@@ -33,7 +33,7 @@ session_start();
 
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Benta<span class="text-primary">.ph</span></a>
+            <a class="navbar-brand fw-bold" href="../index.php">Benta<span class="text-primary">.ph</span></a>
         </div>
     </nav>
 
@@ -72,7 +72,7 @@ session_start();
             </div>
 
             <div class="text-center mt-4">
-                <p>Not an admin? <a href="login.php" class="text-primary text-decoration-none">User login</a></p>
+                <p>Not an admin? <a href="../users/login.php" class="text-primary text-decoration-none">User login</a></p>
             </div>
         </div>
     </div>
