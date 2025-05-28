@@ -1,11 +1,6 @@
 <?php
 $con = mysqli_connect("localhost", "root", "", "dbbenta");
 
-// Check if user is logged in
-if (!isset($_SESSION['email'])) {
-    echo "<script>alert('Please login to access your cart.'); window.location = 'users/login.php';</script>";
-    exit();
-}
 
 // Get user ID
 $user_query = mysqli_query($con, "SELECT userid FROM user WHERE email = '" . $_SESSION['email'] . "'");

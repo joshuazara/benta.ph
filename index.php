@@ -2,17 +2,19 @@
 session_start();
 $conn = mysqli_connect("localhost", "root", "", "dbbenta");
 
-if (!isset($_SESSION['email'])) {
-    // User not logged in
-}
-
 // Get the page parameter
 $pg = isset($_GET["pg"]) ? $_GET["pg"] : "homepage";
 
 // Handle logout
 if ($pg == 'logout') {
     session_destroy();
-    echo "<script>window.location = 'index.php';</script>";
+    echo "<script>window.location = 'users/login.php';</script>";
+    exit();
+}
+
+// REQUIRE LOGIN FOR ALL PAGES - No exceptions!
+if (!isset($_SESSION['email'])) {
+    echo "<script>window.location = 'users/login.php';</script>";
     exit();
 }
 ?>
@@ -109,46 +111,38 @@ if ($pg == 'logout') {
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="index.php">Home</a></li>
-                    <?php if (isset($_SESSION['email'])) { ?>
-                        <li class="nav-item"><a class="nav-link" href="index.php?pg=myaccount">My Account</a></li>
-                    <?php } ?>
+                    <li class="nav-item"><a class="nav-link" href="index.php?pg=myaccount">My Account</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php?pg=about">About Us</a></li>
                 </ul>
                 <ul class="navbar-nav mb-2 mb-lg-0 d-flex align-items-center gap-3">
-                    <!-- Cart button - always visible -->
+                    <!-- Cart button -->
                     <li class="nav-item">
-                        <?php if (isset($_SESSION['email'])) { ?>
-                            <a href="index.php?pg=cart" class="btn btn-outline-success d-flex align-items-center cart-btn">
-                                <i class="fa fa-shopping-cart me-2"></i>Cart
-                                <?php
-                                // Get cart count for logged in user
-                                $user_query = mysqli_query($conn, "SELECT userid FROM user WHERE email = '" . $_SESSION['email'] . "'");
-                                if ($user_query && mysqli_num_rows($user_query) > 0) {
-                                    $user_data = mysqli_fetch_array($user_query);
-                                    $cart_count_query = mysqli_query($conn, "SELECT SUM(quantity) as total FROM cart WHERE userid = " . $user_data['userid']);
-                                    if ($cart_count_query) {
-                                        $cart_count_data = mysqli_fetch_array($cart_count_query);
-                                        $cart_count = ($cart_count_data['total']) ? $cart_count_data['total'] : 0;
-                                        if ($cart_count > 0) {
-                                            echo "<span class='cart-badge'>" . $cart_count . "</span>";
-                                        }
+                        <a href="index.php?pg=cart" class="btn btn-outline-success d-flex align-items-center cart-btn">
+                            <i class="fa fa-shopping-cart me-2"></i>Cart
+                            <?php
+                            // Get cart count for logged in user
+                            $user_query = mysqli_query($conn, "SELECT userid FROM user WHERE email = '" . $_SESSION['email'] . "'");
+                            if ($user_query && mysqli_num_rows($user_query) > 0) {
+                                $user_data = mysqli_fetch_array($user_query);
+                                $cart_count_query = mysqli_query($conn, "SELECT SUM(quantity) as total FROM cart WHERE userid = " . $user_data['userid']);
+                                if ($cart_count_query) {
+                                    $cart_count_data = mysqli_fetch_array($cart_count_query);
+                                    $cart_count = ($cart_count_data['total']) ? $cart_count_data['total'] : 0;
+                                    if ($cart_count > 0) {
+                                        echo "<span class='cart-badge'>" . $cart_count . "</span>";
                                     }
                                 }
-                                ?>
-                            </a>
-                        <?php } else { ?>
-                            <a href="users/login.php" class="btn btn-outline-success d-flex align-items-center cart-btn">
-                                <i class="fa fa-shopping-cart me-2"></i>Cart
-                            </a>
-                        <?php } ?>
+                            }
+                            ?>
+                        </a>
                     </li>
-                    <!-- Login/Logout -->
+                    
+                    <!-- User greeting and logout -->
                     <li class="nav-item">
-                        <?php if (isset($_SESSION['email'])) { ?>
-                            <a class="nav-link" href="index.php?pg=logout">Logout</a>
-                        <?php } else { ?>
-                            <a class="nav-link" href="users/login.php">Login</a>
-                        <?php } ?>
+                        <span class="nav-link">Welcome, <?php echo $_SESSION['email']; ?>!</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?pg=logout">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -167,32 +161,16 @@ if ($pg == 'logout') {
                 include('users/about.php');
                 break;
             case 'cart':
-                if (isset($_SESSION['email'])) {
-                    include('users/cart.php');
-                } else {
-                    echo "<script>alert('Please login to access your cart.'); window.location = 'users/login.php';</script>";
-                }
+                include('users/cart.php');
                 break;
             case 'checkout':
-                if (isset($_SESSION['email'])) {
-                    include('users/checkout.php');
-                } else {
-                    echo "<script>alert('Please login to checkout.'); window.location = 'users/login.php';</script>";
-                }
+                include('users/checkout.php');
                 break;
             case 'myaccount':
-                if (isset($_SESSION['email'])) {
-                    include('users/myaccount.php');
-                } else {
-                    echo "<script>alert('Please login to access your account.'); window.location = 'users/login.php';</script>";
-                }
+                include('users/myaccount.php');
                 break;
             case 'transaction_details':
-                if (isset($_SESSION['email'])) {
-                    include('users/transaction_details.php');
-                } else {
-                    echo "<script>alert('Please login to view your transactions.'); window.location = 'users/login.php';</script>";
-                }
+                include('users/transaction_details.php');
                 break;
             case 'item_details':
                 include('users/item_details.php');
@@ -216,9 +194,7 @@ if ($pg == 'logout') {
                     <h6 class="text-uppercase fw-bold mb-3">Quick Links</h6>
                     <ul class="list-unstyled footer-nav">
                         <li><a href="index.php" class="nav-link">Home</a></li>
-                        <?php if (isset($_SESSION['email'])) { ?>
                         <li><a href="index.php?pg=myaccount" class="nav-link">My Account</a></li>
-                    <?php } ?>
                         <li><a href="index.php?pg=about" class="nav-link">About Us</a></li>
                     </ul>
                 </div>
