@@ -179,8 +179,7 @@ $sql .= " ORDER BY itemname ASC";
                     $stock_class = 'text-danger';
                     $stock_text = 'Out of Stock';
                 } elseif ($r['quantity'] < 5) {
-                    $stock_class = 'text-warning';
-                    $stock_text = 'Low Stock (' . $r['quantity'] . ')';
+                    $stock_text = '' . $r['quantity'] . ' available (Low Stock) ';
                 }
         ?>
         <div class="col-sm-6 col-md-4 col-lg-3">
