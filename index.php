@@ -187,22 +187,15 @@ if ($pg == 'logout') {
                     echo "<script>alert('Please login to access your account.'); window.location = 'users/login.php';</script>";
                 }
                 break;
-            case 'transactions':
+            case 'transaction_details':
                 if (isset($_SESSION['email'])) {
-                    include('users/transactions.php');
+                    include('users/transaction_details.php');
                 } else {
                     echo "<script>alert('Please login to view your transactions.'); window.location = 'users/login.php';</script>";
                 }
                 break;
             case 'item_details':
                 include('users/item_details.php');
-                break;
-            case 'update_account':
-                if (isset($_SESSION['email'])) {
-                    include('users/update_account.php');
-                } else {
-                    echo "<script>alert('Please login to update your account.'); window.location = 'users/login.php';</script>";
-                }
                 break;
             default:
                 include('users/homepage.php');
