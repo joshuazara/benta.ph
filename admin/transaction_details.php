@@ -10,19 +10,19 @@ $id = $_GET["id"];
 if(isset($_POST["btnapprove"])) {
     mysqli_query($conn, "UPDATE transaction SET status = 'Approved' WHERE transactionid = $id");
     echo "<script>alert('Transaction #$id has been approved.');</script>";
-    echo "<script>window.location = 'admin.php?pg=transaction_details&id=$id';</script>";
+    echo "<script>window.location = 'index.php?pg=transaction_details&id=$id';</script>";
 }
 
 if(isset($_POST["btncancel"])) {
     mysqli_query($conn, "UPDATE transaction SET status = 'Cancelled' WHERE transactionid = $id");
     echo "<script>alert('Transaction #$id has been cancelled.');</script>";
-    echo "<script>window.location = 'admin.php?pg=transaction_details&id=$id';</script>";
+    echo "<script>window.location = 'index.php?pg=transaction_details&id=$id';</script>";
 }
 
 if(isset($_POST["btncomplete"])) {
     mysqli_query($conn, "UPDATE transaction SET status = 'Completed' WHERE transactionid = $id");
     echo "<script>alert('Transaction #$id has been completed.');</script>";
-    echo "<script>window.location = 'admin.php?pg=transaction_details&id=$id';</script>";
+    echo "<script>window.location = 'index.php?pg=transaction_details&id=$id';</script>";
 }
 
 
@@ -63,7 +63,7 @@ $orderDate = date("F d, Y h:i A", strtotime($r["ordereddate"]));
         </p>
     </div>
     <div>
-        <a href="admin.php?pg=transactions" class="btn btn-outline-secondary">
+        <a href="index.php?pg=transactions" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to Transactions
         </a>
     </div>

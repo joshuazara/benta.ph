@@ -5,7 +5,7 @@ if (!isset($conn)) {
 }
 
 if (!isset($_GET["id"])) {
-    echo "<script>window.location = 'admin.php?pg=categories';</script>";
+    echo "<script>window.location = 'index.php?pg=categories';</script>";
 }
 
 $id = $_GET["id"];
@@ -20,7 +20,7 @@ $r = mysqli_fetch_array($q);
         <p class="text-muted mb-0">Edit category: <?php echo $r["name"]; ?></p>
     </div>
     <div>
-        <a href="admin.php?pg=categories" class="btn btn-outline-secondary">
+        <a href="index.php?pg=categories" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to Categories
         </a>
     </div>
@@ -44,7 +44,7 @@ $r = mysqli_fetch_array($q);
                         <button type="submit" name="btnupdate" class="btn btn-primary">
                             <i class="fas fa-save me-2"></i>Update Category
                         </button>
-                        <a href="admin.php?pg=categories" class="btn btn-outline-secondary ms-2">
+                        <a href="index.php?pg=categories" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-times me-2"></i>Cancel
                         </a>
                     </div>
@@ -55,7 +55,7 @@ $r = mysqli_fetch_array($q);
 
                         mysqli_query($conn, "UPDATE category SET name = '$categoryname' WHERE categoryid = $id");
                         echo "<script>alert('Category updated successfully.');</script>";
-                        echo "<script>window.location = 'admin.php?pg=categories';</script>";
+                        echo "<script>window.location = 'index.php?pg=categories';</script>";
                     }
                     ?>
                 </form>

@@ -63,7 +63,7 @@ session_start();
 
                     if (mysqli_num_rows($result) > 0) {
                         $_SESSION['admin_username'] = $username;
-                        echo "<script>window.location.href = 'admin.php';</script>";
+                        echo "<script>window.location.href = 'index.php';</script>";
                     } else {
                         echo "<div class='alert alert-danger'>Invalid admin credentials.</div>";
                     }

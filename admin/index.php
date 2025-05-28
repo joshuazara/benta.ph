@@ -125,31 +125,31 @@
         </div>
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a href="admin.php?pg=dashboard" class="nav-link <?php echo ($pg == 'dashboard') ? 'active' : ''; ?>">
+                <a href="index.php?pg=dashboard" class="nav-link <?php echo ($pg == 'dashboard') ? 'active' : ''; ?>">
                     <i class="fas fa-tachometer-alt"></i>
                     <span class="nav-link-text">Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin.php?pg=myaccount" class="nav-link <?php echo ($pg == 'myaccount') ? 'active' : ''; ?>">
+                <a href="index.php?pg=myaccount" class="nav-link <?php echo ($pg == 'myaccount') ? 'active' : ''; ?>">
                     <i class="fas fa-user"></i>
                     <span class="nav-link-text">My Account</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin.php?pg=transactions" class="nav-link <?php echo ($pg == 'transactions' || $pg == 'transaction_details') ? 'active' : ''; ?>">
+                <a href="index.php?pg=transactions" class="nav-link <?php echo ($pg == 'transactions' || $pg == 'transaction_details') ? 'active' : ''; ?>">
                     <i class="fas fa-exchange-alt"></i>
                     <span class="nav-link-text">Transactions</span>
                 </a>
             </li>
               <li class="nav-item">
-                <a href="admin.php?pg=categories" class="nav-link <?php echo ($pg == 'categories' || $pg == 'add_category' || $pg == 'edit_category') ? 'active' : ''; ?>">
+                <a href="index.php?pg=categories" class="nav-link <?php echo ($pg == 'categories' || $pg == 'add_category' || $pg == 'edit_category') ? 'active' : ''; ?>">
                     <i class="fas fa-tags"></i>
                     <span class="nav-link-text">Categories</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a href="admin.php?pg=items" class="nav-link <?php echo ($pg == 'items' || $pg == 'add_item' || $pg == 'edit_item') ? 'active' : ''; ?>">
+                <a href="index.php?pg=items" class="nav-link <?php echo ($pg == 'items' || $pg == 'add_item' || $pg == 'edit_item') ? 'active' : ''; ?>">
                     <i class="fas fa-box"></i>
                     <span class="nav-link-text">Items</span>
                 </a>

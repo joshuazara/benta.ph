@@ -4,7 +4,7 @@ if (!isset($conn)) {
 }
 
 if (!isset($_GET["id"])) {
-    echo "<script>window.location = 'admin.php?pg=items';</script>";
+    echo "<script>window.location = 'index.php?pg=items';</script>";
 }
 
 $id = $_GET["id"];
@@ -19,7 +19,7 @@ $r = mysqli_fetch_array($q);
         <p class="text-muted mb-0">Edit item: <?php echo $r["itemname"]; ?></p>
     </div>
     <div>
-        <a href="admin.php?pg=items" class="btn btn-outline-secondary">
+        <a href="index.php?pg=items" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to Items
         </a>
     </div>
@@ -90,7 +90,7 @@ $r = mysqli_fetch_array($q);
                         <button type="submit" name="btnupdate" class="btn btn-primary">
                             <i class="fas fa-save me-2"></i>Update Item
                         </button>
-                        <a href="admin.php?pg=items" class="btn btn-outline-secondary ms-2">
+                        <a href="index.php?pg=items" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-times me-2"></i>Cancel
                         </a>
                     </div>
@@ -133,7 +133,7 @@ $r = mysqli_fetch_array($q);
                   WHERE itemid = $id");
 
                         echo "<script>alert('Item updated successfully.');</script>";
-                        echo "<script>window.location = 'admin.php?pg=items';</script>";
+                        echo "<script>window.location = 'index.php?pg=items';</script>";
                     }
                     ?>
                 </form>

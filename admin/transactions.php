@@ -69,7 +69,7 @@ if(!isset($conn)) {
                             <td><?php echo $orderDate; ?></td>
                             <td><span class="badge <?php echo $statusClass; ?>"><i class="<?php echo $statusIcon; ?> me-1"></i><?php echo $r["status"]; ?></span></td>
                             <td>
-                                <a href="admin.php?pg=transaction_details&id=<?php echo $r["transactionid"]; ?>" class="btn btn-sm btn-primary">
+                                <a href="index.php?pg=transaction_details&id=<?php echo $r["transactionid"]; ?>" class="btn btn-sm btn-primary">
                                     <i class="fas fa-eye me-1"></i>View
                                 </a>
                             </td>

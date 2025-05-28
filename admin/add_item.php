@@ -11,7 +11,7 @@ if (!isset($conn)) {
         <p class="text-muted mb-0">Create a new product item</p>
     </div>
     <div>
-        <a href="admin.php?pg=items" class="btn btn-outline-secondary">
+        <a href="index.php?pg=items" class="btn btn-outline-secondary">
             <i class="fas fa-arrow-left me-2"></i>Back to Items
         </a>
     </div>
@@ -73,7 +73,7 @@ if (!isset($conn)) {
                         <button type="submit" name="btnsave" class="btn btn-primary">
                             <i class="fas fa-save me-2"></i>Save Item
                         </button>
-                        <a href="admin.php?pg=items" class="btn btn-outline-secondary ms-2">
+                        <a href="index.php?pg=items" class="btn btn-outline-secondary ms-2">
                             <i class="fas fa-times me-2"></i>Cancel
                         </a>
                     </div>
@@ -109,7 +109,7 @@ if (!isset($conn)) {
                          VALUES($categoryid, '$itemname', $price, '$image', $quantity, '$description')");
 
                         echo "<script>alert('Item added successfully.');</script>";
-                        echo "<script>window.location = 'admin.php?pg=items';</script>";
+                        echo "<script>window.location = 'index.php?pg=items';</script>";
                     }
                     ?>
                 </form>
