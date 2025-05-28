@@ -22,10 +22,16 @@ $sql .= " ORDER BY itemname ASC";
 <!-- Add specific styles for homepage -->
 <style>
     .product-img {
-        width: 100%;
-        height: 250px;
-        object-fit: cover;
-    }
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    transition: transform 0.3s ease;
+}
 
     .product-card {
         height: 100%;
