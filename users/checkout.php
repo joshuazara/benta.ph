@@ -1,170 +1,238 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Checkout & Review</title>
+<?php
+$con = mysqli_connect("localhost", "root", "", "dbbenta");
 
- 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+// Check if user is logged in
+if (!isset($_SESSION['email'])) {
+    echo "<script>alert('Please login to checkout.'); window.location = 'users/login.php';</script>";
+    exit();
+}
 
-  <style>
-    body {
-      background-color: #f4f7f9;
-      font-family: Arial, sans-serif;
-    }
-    .navbar {
-      background-color: #ffffff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    .header {
-      background-color: #1d1f22;
-      color: white;
-      padding: 60px 0;
-      text-align: center;
-    }
-    .card-details {
-      background: #f8f9fa;
-      border-radius: 10px;
-      padding: 20px;
-    }
-    .quantity-control {
-      display: flex;
-      align-items: center;
-    }
-    .quantity-control button {
-      border: none;
-      background: #eee;
-      padding: 5px 10px;
-      margin: 0 5px;
-    }
-    .item-img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-    .alert-success {
-      display: none;
-    }
-  </style>
-</head>
-<body>
+// Get user data
+$user_query = mysqli_query($con, "SELECT * FROM user WHERE email = '" . $_SESSION['email'] . "'");
+$user_data = mysqli_fetch_array($user_query);
+$user_id = $user_data['userid'];
 
-<nav class="navbar navbar-expand-lg navbar-light px-3">
-  <a class="navbar-brand fw-bold" href="#">BentaPH</a>
-  <div class="collapse navbar-collapse">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-      <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Account</a></li>
-      <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
-    </ul>
-    <a href="cart.php" class="btn btn-outline-dark">
-      <i class="bi bi-cart"></i> Cart
-    </a>
-  </div>
-</nav>
+// Get cart items
+$cart_query = mysqli_query($con, "SELECT c.*, i.itemname, i.price, i.image, i.quantity as stock_quantity FROM cart c JOIN item i ON c.itemid = i.itemid WHERE c.userid = $user_id");
 
+$cart_items = array();
+$subtotal = 0;
 
-<div class="header">
-  <h1 class="display-5 fw-bold">Checkout</h1>
-  <p class="lead">Review and Complete Your Order</p>
-</div>
+while ($cart_item = mysqli_fetch_array($cart_query)) {
+    $cart_items[] = $cart_item;
+    $subtotal += $cart_item['price'] * $cart_item['quantity'];
+}
 
+// Check if cart is empty
+if (empty($cart_items)) {
+    echo "<script>alert('Your cart is empty!'); window.location = 'index.php?pg=cart';</script>";
+    exit();
+}
+
+$shipping_fee = 100;
+$total = $subtotal + $shipping_fee;
+
+// Handle order placement
+if (isset($_POST['place_order'])) {
+    $contact = $user_data['contactnumber'];
+    $address = $user_data['address'];
+    $order_date = date('Y-m-d H:i:s');
+    
+    // Check stock availability
+    $stock_check = true;
+    $stock_errors = array();
+    
+    foreach ($cart_items as $item) {
+        $current_stock_query = mysqli_query($con, "SELECT quantity FROM item WHERE itemid = {$item['itemid']}");
+        $current_stock_result = mysqli_fetch_array($current_stock_query);
+        $current_stock = $current_stock_result['quantity'];
+        
+        if ($current_stock < $item['quantity']) {
+            $stock_check = false;
+            $stock_errors[] = $item['itemname'] . " (Available: $current_stock, Requested: {$item['quantity']})";
+        }
+    }
+    
+    if (!$stock_check) {
+        echo "<div class='alert alert-danger mt-3'>";
+        echo "<strong>Stock Error:</strong> The following items don't have enough stock:<br>";
+        foreach ($stock_errors as $error) {
+            echo "• $error<br>";
+        }
+        echo "</div>";
+    } else {
+        // Create transaction
+        $insert_transaction = mysqli_query($con, "INSERT INTO transaction 
+            (userid, ordereddate, subtotal, shippingfee, totalamount, deliveryaddress, contactnumber, status) 
+            VALUES ($user_id, '$order_date', $subtotal, $shipping_fee, $total, '$address', '$contact', 'Pending')");
+        
+        if ($insert_transaction) {
+            $transaction_id = mysqli_insert_id($con);
+            
+            // Add transaction items and update stock
+            foreach ($cart_items as $item) {
+                $item_subtotal = $item['price'] * $item['quantity'];
+                
+                // Insert transaction item
+                mysqli_query($con, "INSERT INTO transactionitem 
+                    (transactionid, itemid, quantity, price, subtotal) 
+                    VALUES ($transaction_id, {$item['itemid']}, {$item['quantity']}, {$item['price']}, $item_subtotal)");
+                
+                // Update item stock
+                mysqli_query($con, "UPDATE item SET quantity = quantity - {$item['quantity']} WHERE itemid = {$item['itemid']}");
+            }
+            
+            // Clear cart
+            mysqli_query($con, "DELETE FROM cart WHERE userid = $user_id");
+            
+            echo "<script>
+                alert('Order placed successfully! Transaction ID: #$transaction_id');
+                window.location = 'index.php?pg=transactions';
+            </script>";
+        } else {
+            echo "<div class='alert alert-danger mt-3'>Error placing order. Please try again.</div>";
+        }
+    }
+}
+?>
+
+<style>
+    .checkout-item-img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+    }
+    
+    .order-summary {
+        position: sticky;
+        top: 20px;
+    }
+</style>
 
 <div class="container mt-4">
-  <div id="successMessage" class="alert alert-success text-center" role="alert">
-    Order placed successfully!
-  </div>
-</div>
-
-
-<div class="container my-5">
-  <div class="row">
-  
-    <div class="col-md-8">
-      <h3>Items</h3>
-      <table class="table align-middle">
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Quantity</th>
-            <th>Subtotal</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><img src="https://i.imgur.com/B2FKZTp.jpg" class="item-img me-2"> Egg Roast</td>
-            <td>₱12.50</td>
-            <td>
-              <div class="quantity-control">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-              </div>
-            </td>
-            <td>₱12.50</td>
-          </tr>
-          <tr>
-            <td><img src="https://i.imgur.com/JG3uGzD.jpg" class="item-img me-2"> Spicy Chicken Roast</td>
-            <td>₱10.00</td>
-            <td>
-              <div class="quantity-control">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-              </div>
-            </td>
-            <td>₱10.00</td>
-          </tr>
-          <tr>
-            <td><img src="https://i.imgur.com/w1XzTDM.jpg" class="item-img me-2"> Rose berry cake</td>
-            <td>₱22.50</td>
-            <td>
-              <div class="quantity-control">
-                <button>-</button>
-                <span>1</span>
-                <button>+</button>
-              </div>
-            </td>
-            <td>₱22.50</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="d-flex justify-content-between">
-        <a href="#" class="btn btn-outline-primary btn-sm">&larr; Continue Shopping</a>
-      </div>
-      <h5 class="mt-3">Subtotal: <strong>₱45.00</strong></h5>
+    <div class="row mb-4">
+        <div class="col">
+            <h2><i class="fas fa-credit-card me-2"></i>Checkout</h2>
+            <p class="text-muted">Review your order and complete your purchase</p>
+        </div>
     </div>
 
-   
-    <div class="col-md-4">
-      <div class="card-details">
-        <h5>Order Summary</h5>
-        <p><strong>Full Name:</strong> Harold Inacay</p>
-        <p><strong>Delivery Address:</strong> Harold Inacay</p>
-        <p><strong>Contact Number:</strong> 09171234567</p>
-        <p><strong>Subtotal:</strong> ₱45.00</p>
-        <p><strong>Shipping Fee:</strong> ₱100.00</p>
-        <p class="fw-bold fs-5">Total Amount: ₱145.00</p>
-
-        <button class="btn btn-danger w-100 mt-3" onclick="showSuccess()">Proceed</button>
-      </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="fas fa-shopping-cart me-2"></i>Order Review</h5>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Item</th>
+                                <th class="text-center">Price</th>
+                                <th class="text-center">Quantity</th>
+                                <th class="text-center">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($cart_items as $item) { ?>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <?php if (!empty($item['image'])) { ?>
+                                                <img src="<?php echo $item['image']; ?>" class="checkout-item-img me-3" alt="<?php echo htmlspecialchars($item['itemname']); ?>">
+                                            <?php } else { ?>
+                                                <div class="checkout-item-img bg-light d-flex align-items-center justify-content-center me-3">
+                                                    <i class="fas fa-image text-muted"></i>
+                                                </div>
+                                            <?php } ?>
+                                            <div>
+                                                <h6 class="mb-1"><?php echo htmlspecialchars($item['itemname']); ?></h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">₱<?php echo number_format($item['price'], 2); ?></td>
+                                    <td class="text-center"><?php echo $item['quantity']; ?></td>
+                                    <td class="text-center">₱<?php echo number_format($item['price'] * $item['quantity'], 2); ?></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="fas fa-truck me-2"></i>Delivery Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <span class="text-muted">Name:</span><br>
+                        <?php echo htmlspecialchars($user_data['firstname'] . ' ' . $user_data['lastname']); ?>
+                    </div>
+                    <div class="mb-2">
+                        <span class="text-muted">Contact:</span><br>
+                        <?php echo htmlspecialchars($user_data['contactnumber']); ?>
+                    </div>
+                    <div class="mb-3">
+                        <span class="text-muted">Address:</span><br>
+                        <?php echo nl2br(htmlspecialchars($user_data['address'])); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+    
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0"><i class="fas fa-calculator me-2"></i>Order Summary</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <span>₱<?php echo number_format($subtotal, 2); ?></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Shipping Fee:</span>
+                        <span>₱<?php echo number_format($shipping_fee, 2); ?></span>
+                    </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="h5">Total:</span>
+                        <span class="h5">₱<?php echo number_format($total, 2); ?></span>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between gap-2">
+                        <a href="index.php?pg=cart" class="btn btn-outline-secondary">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Cart
+                        </a>
+                        <button type="submit" name="place_order" class="btn btn-success" form="checkoutForm">
+                            <i class="fas fa-check me-2"></i>Place Order
+                        </button>
+                    </div>
+                    
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1"></i>Secure checkout guaranteed
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <form method="POST" id="checkoutForm" style="display: none;"></form>
 </div>
 
 <script>
-  function showSuccess() {
-    const msg = document.getElementById("successMessage");
-    msg.style.display = "block";
-    msg.scrollIntoView({ behavior: "smooth" });
-  }
+document.getElementById('checkoutForm').addEventListener('submit', function(e) {
+    if (!confirm('Are you sure you want to place this order?')) {
+        e.preventDefault();
+        return false;
+    }
+});
 </script>
-
-</body>
-</html>
