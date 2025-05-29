@@ -23,13 +23,18 @@ $transaction = mysqli_fetch_array($transaction_query);
 
 // Handle transaction cancellation
 if (isset($_POST['cancel_transaction'])) {
-    // Check if transaction can be cancelled (Pending or Approved status)
-    if ($transaction['status'] == 'Pending' || $transaction['status'] == 'Approved') {
-        mysqli_query($con, "UPDATE transaction SET status = 'Cancelled' WHERE transactionid = $transaction_id");
-        echo "<script>alert('Transaction #$transaction_id has been cancelled.'); window.location = 'index.php?pg=transaction_details&id=$transaction_id';</script>";
-    } else {
-        $cancel_error = "Cannot cancel this transaction.";
+    $restore_items_query = mysqli_query($con, "SELECT itemid, quantity FROM transactionitem WHERE transactionid = $transaction_id");
+    
+    while ($restore_item = mysqli_fetch_array($restore_items_query)) {
+        $item_id = $restore_item['itemid'];
+        $quantity_to_restore = $restore_item['quantity'];
+        
+        mysqli_query($con, "UPDATE item SET quantity = quantity + $quantity_to_restore WHERE itemid = $item_id");
     }
+    
+    mysqli_query($con, "UPDATE transaction SET status = 'Cancelled' WHERE transactionid = $transaction_id");
+    
+    echo "<script>alert('Transaction cancelled'); window.location = 'index.php?pg=transaction_details&id=$transaction_id';</script>";
 }
 
 // Get transaction items

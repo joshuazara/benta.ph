@@ -14,8 +14,18 @@ if(isset($_POST["btnapprove"])) {
 }
 
 if(isset($_POST["btncancel"])) {
+    $restore_items_query = mysqli_query($conn, "SELECT itemid, quantity FROM transactionitem WHERE transactionid = $id");
+    
+    while ($restore_item = mysqli_fetch_array($restore_items_query)) {
+        $item_id = $restore_item['itemid'];
+        $quantity_to_restore = $restore_item['quantity'];
+        
+        mysqli_query($conn, "UPDATE item SET quantity = quantity + $quantity_to_restore WHERE itemid = $item_id");
+    }
+    
     mysqli_query($conn, "UPDATE transaction SET status = 'Cancelled' WHERE transactionid = $id");
-    echo "<script>alert('Transaction #$id has been cancelled.');</script>";
+    
+    echo "<script>alert('Transaction cancelled');</script>";
     echo "<script>window.location = 'index.php?pg=transaction_details&id=$id';</script>";
 }
 
