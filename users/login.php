@@ -56,7 +56,7 @@ session_start();
                 <?php
                 if (isset($_POST["btnLogin"])) {
                     $email = $_POST['email'];
-                    $password = $_POST['password'];
+                    $password = md5($_POST['password']);
 
                     $query = "SELECT * FROM user WHERE email='$email' AND password='$password'";
                     $result = mysqli_query($con, $query);

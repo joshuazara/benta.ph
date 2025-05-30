@@ -48,7 +48,7 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text form-icon"><i class="fas fa-lock"></i></span>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" placeholder="Password" minlength="8" title="Password must be at least 8 characters long" required>
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text form-icon"><i class="fas fa-envelope"></i></span>
@@ -56,7 +56,7 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text form-icon"><i class="fas fa-phone"></i></span>
-                    <input type="number" name="contact" class="form-control" placeholder="Contact Number" required>
+                    <input type="tel" name="contact" class="form-control" placeholder="Contact Number" pattern="09[0-9]{9}" maxlength="11" title="Contact number must start with '09' and be exactly 11 digits."  required>
                 </div>
                 <div class="mb-3 input-group">
                     <span class="input-group-text form-icon"><i class="fas fa-map-marker-alt"></i></span>
@@ -70,7 +70,7 @@ $con = mysqli_connect("localhost", "root", "", "dbbenta");
                 if (isset($_POST["btnRegister"])) {
                     $firstname = $_POST["firstname"];
                     $lastname = $_POST["lastname"];
-                    $password = $_POST["password"];
+                    $password = md5($_POST["password"]);
                     $email = $_POST["email"];
                     $contact = $_POST["contact"];
                     $address = $_POST["address"];
